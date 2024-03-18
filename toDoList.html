@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To do lists</title>
+<link rel="stylesheet" href="toDoList.css" />
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Protest+Guerrilla&family=Roboto+Mono:ital@1&display=swap" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>To do list <img src="clock2.png" alt="" /></h1>
+  </div>
+  <div class="inputs">
+    <input id="inputBox" type="text" placeholder="Add your text" />
+    <button id="button">Add</button>
+  </div>
+  <div>
+    <ul id="tasks">
+      <!-- Tasks will be dynamically added here -->
+    </ul>
+  </div>
+</div>
+<!--This is the javascript part-->
+<script>
+  // Function to save tasks list to Local Storage
+  function saveTasksToLocalStorage() {
+    var tasks = [];
+    var taskElements = document.querySelectorAll("#tasks li");
+    taskElements.forEach(function(taskElement) {
+      var task = {
+        text: taskElement.querySelector("span").textContent,
+        completed: taskElement.classList.contains("completed")
+      };
+      tasks.push(task);
+    });
+    localStorage.setItem("tasksList", JSON.stringify(tasks));
+  }
+
+  // Function to load tasks list from Local Storage
+  function loadTasksFromLocalStorage() {
+    var tasksList = localStorage.getItem("tasksList");
+    if (tasksList) {
+      var tasks = JSON.parse(tasksList);
+      var tasksElement = document.getElementById("tasks");
+      tasksElement.innerHTML = ""; // Clear existing tasks
+      tasks.forEach(function(task) {
+        addTaskToList(task.text, task.completed);
+      });
+    }
+  }
+
+  // Function to add a task to the list
+  function addTaskToList(taskText, completed) {
+    var tasksList = document.getElementById("tasks");
+    var newTask = document.createElement("li");
+    var taskSpan = document.createElement("span");
+    taskSpan.textContent = taskText;
+    taskSpan.addEventListener("click", function() {
+      newTask.classList.toggle("completed");
+      saveTasksToLocalStorage();
+    });
+    if (completed) {
+      newTask.classList.add("completed");
+    }
+
+    var closeIcon = document.createElement("i");
+    closeIcon.className = "fas fa-times";
+    closeIcon.addEventListener("click", function() {
+      newTask.remove();
+      saveTasksToLocalStorage();
+    });
+
+    newTask.appendChild(taskSpan);
+    newTask.appendChild(closeIcon);
+    tasksList.appendChild(newTask);
+  }
+
+  // Add an event listener to the button click event to add a new task
+  document.getElementById("button").addEventListener("click", function() {
+    var taskInput = document.getElementById("inputBox");
+    var taskText = taskInput.value.trim();
+    if (taskText !== "") {
+      addTaskToList(taskText, false);
+      taskInput.value = "";
+      saveTasksToLocalStorage();
+    } else {
+      alert("Please enter a valid task!");
+    }
+  });
+
+  // Add event listeners to the loaded tasks when the page is loaded
+  window.addEventListener("load", function() {
+    loadTasksFromLocalStorage();
+  });
+</script>
+</body>
+</html>

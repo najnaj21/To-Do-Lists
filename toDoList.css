@@ -1,0 +1,114 @@
+body{
+    /* Gradient at a 45-degree angle */
+background: linear-gradient(45deg, rgba(5, 147, 255, 0.947), rgba(28, 25, 119, 0.426));
+margin: 0;
+padding: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;/*this sets the background to max height*/
+font-family: "Protest Guerrilla", sans-serif;
+font-weight: 400;
+font-style: normal;
+}
+
+.container{
+  width: 500px;
+  background: rgba(255, 255, 255, 0.13);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.7px);
+  -webkit-backdrop-filter: blur(5.7px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  display: flex;
+  flex-direction: column; /* Stack child elements vertically */
+  align-items: center; /* Center child elements horizontally */
+}
+.header img{
+    height: 30px;
+}
+.header{
+    display: flex;
+    justify-content: center;
+}
+.inputs{
+    display: flex;
+    justify-content: center;
+}
+#inputBox{
+    width: 300px;
+    height: 40px;
+    border-radius: 50px;
+    border: 0px;
+    text-indent: 10px;
+    
+}
+
+#button{
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-left: 5px;
+    cursor: pointer;
+    border-radius: 50px;
+    border: 0px;
+    background-color: rgb(9, 131, 142);
+}
+
+ul li{
+    list-style: none;
+font-size: 17px;
+padding: 12px 8px 12px 50px;
+user-select: none;
+cursor: pointer;
+font-family:sans-serif;
+position: relative;
+
+}
+ul li::before{
+position: absolute;
+content: "";
+height: 25px;
+width: 25px;
+border-radius: 50%;
+background-image: url(blank.svg);
+background-size: cover;
+background-position: center;
+top: 10px;
+left: 8px;
+
+}
+/* Add this CSS to style the completed tasks */
+#tasks li.completed span {
+    text-decoration: line-through;
+    color: rgba(0, 0, 0, 0.5); /* You can adjust the color as needed */
+  }
+  #tasks li.completed::before{
+    background-image: url(chck.svg);
+  }
+
+
+  #tasks{
+    width: 400px;
+  margin-left: 5px;
+    padding: 10px;
+  }
+
+  #tasks li i {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Move the icon to the right end */
+    transform: translateY(-50%);
+  }
+  #tasks li i:hover {
+   color: red;
+  }
+  #tasks li span {
+    cursor: pointer;
+  }
+  
+  #tasks li span:hover {
+    color: red;
+  }
+  
